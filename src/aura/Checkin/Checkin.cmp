@@ -1,0 +1,73 @@
+<aura:component controller="CheckinController">
+    <ltng:require styles="{!join(',',
+                          $Resource.SLDS_2_0_3 + '/assets/styles/salesforce-lightning-design-system.min.css',
+                          $Resource.leaflet_0_7_7 + '/leaflet.css')}"   
+                  scripts="{!$Resource.leaflet_0_7_7 + '/leaflet.js'}"
+                  afterScriptsLoaded="{!c.doInit}" />
+    
+    <aura:attribute name="recorded" type="Boolean" default="false" />
+    <aura:attribute name="error" type="Boolean" default="false" />
+    <aura:attribute name="lat" type="Decimal" />
+    <aura:attribute name="long" type="Decimal" />
+    <aura:attribute name="showWorking" type="Boolean" default="true" />
+    <aura:attribute name="prompt" type="String" default="Click the icon to record your current location" />
+    
+    <div class="slds">
+        <div class="slds-page-header slds-theme--warning" role="banner">
+            <div class="slds-media slds-media--center">
+                <div class="slds-media__figure">
+                    <c:CheckinSVG ariaHidden="true" class="slds-icon slds-icon-custom-custom78"
+                                  xlinkHref="{!$Resource.SLDS_2_0_3 + '/assets/icons/custom-sprite/svg/symbols.svg#custom78'}"/>
+                </div>
+                <div class="slds-media__body">
+                    <p class="slds-page-header__title slds-truncate slds-align-middle" title="Check In">Check In</p>
+                    <p class="slds-text-body--small page-header__info">Keep Us Informed • Record Your Location</p>
+                </div>
+            </div>
+        </div>        
+        <div class="slds-m-around--medium">
+            <article class="slds-card">
+                <div class="slds-m-around--large">
+                    <div class="slds-text-align--center slds-m-bottom--medium">
+                        {!v.prompt}
+                    </div>
+                    <div class="slds-align--absolute-center">
+                        <div class="slds-card__body button-container-huge">
+                            <aura:if isTrue="{!v.recorded}">
+                                <button class="slds-button slds-button--icon-container" onclick="{!c.recordLocation}">
+                                    <c:CheckinSVG ariaHidden="true" class=".slds-icon_container--circle button-huge"
+                                                  xlinkHref="{!$Resource.SLDS_2_0_3 + '/assets/icons/utility-sprite/svg/symbols.svg#check'}"/>
+                                    <span class="slds-assistive-text">Success</span>
+                                </button>
+                                <aura:set attribute="else">
+                                    <aura:if isTrue="{!v.error}">
+                                        <button class="slds-button slds-button--icon-container" onclick="{!c.recordLocation}">
+                                            <c:CheckinSVG ariaHidden="true" class=".slds-icon_container--circle button-huge"
+                                                          xlinkHref="{!$Resource.SLDS_2_0_3 + '/assets/icons/utility-sprite/svg/symbols.svg#error'}"/>
+                                            <span class="slds-assistive-text">Error</span>
+                                        </button>
+                                        <aura:set attribute="else">
+                                            <button class="slds-button slds-button--icon-container" onclick="{!c.recordLocation}">
+                                                <c:CheckinSVG ariaHidden="true" class=".slds-icon_container--circle button-huge"
+                                                              xlinkHref="{!$Resource.SLDS_2_0_3 + '/assets/icons/utility-sprite/svg/symbols.svg#checkin'}"/>
+                                                <span class="slds-assistive-text">Check In</span>
+                                            </button>                
+                                        </aura:set>
+                                    </aura:if>
+                                </aura:set>
+                            </aura:if>
+                        </div>
+                    </div>
+                </div>
+            </article>
+        </div>
+        <aura:if isTrue="{!v.showWorking}">
+            <div class="slds-spinner_container">
+                <div class="slds-spinner--brand slds-spinner slds-spinner--medium" aria-hidden="false" role="alert">
+                    <div class="slds-spinner__dot-a"></div>
+                    <div class="slds-spinner__dot-b"></div>
+                </div>
+            </div>    
+        </aura:if>
+    </div>
+</aura:component>

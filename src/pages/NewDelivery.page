@@ -1,0 +1,55 @@
+<apex:page controller="NewDeliveryController" applyBodyTag="false" applyHtmlTag="false"
+			sidebar="false" showHeader="false">
+    <html xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+        <apex:stylesheet value="{!URLFOR($Resource.SLDS_2_0_3, '/assets/styles/salesforce-lightning-design-system.min.css')}" />
+        
+        <div class="slds">
+            <div class="slds-page-header slds-theme--warning" role="banner">
+                <div class="slds-media slds-media--center">
+                    <div class="slds-media__figure">
+                        <svg aria-hidden="true" class="slds-icon slds-icon-custom-custom98">
+                            <use xlink:href="{!URLFOR($Resource.SLDS_2_0_3, '/assets/icons/custom-sprite/svg/symbols.svg#custom98')}"/>
+                        </svg>
+                    </div>
+                    <div class="slds-media__body">
+                        <p class="slds-page-header__title slds-truncate slds-align-middle" title="Delivery">Delivery</p>
+                        <p class="slds-text-body--small page-header__info">Pick Up • Drop Off</p>
+                    </div>
+                </div>
+            </div>     
+            
+            <apex:form >
+                <div class="slds-form--stacked slds-m-around--medium">
+                    
+                    <div class="slds-heading--small slds-m-bottom--small">Enter details of the delivery request</div>
+                    
+                    <div class="slds-form-element">
+                        <label class="slds-form-element__label">From</label>
+                        <div class="slds-form-element__control">
+                            <apex:inputField required="true" style="width:50%; height:2em;" value="{!delivery.From__c}" />
+                        </div>
+                    </div>
+                    
+                    <div class="slds-form-element">
+                        <label class="slds-form-element__label">To</label>
+                        <div class="slds-form-element__control">
+                            <apex:inputField required="true" style="width:50%; height:2em;" value="{!delivery.To__c}" />
+                        </div>
+                    </div>
+                    
+                    <div class="slds-form-element">
+                        <label class="slds-form-element__label">Instructions</label>
+                        <div class="slds-form-element__control">
+                            <apex:inputTextarea style="width:50%;" styleClass="slds-textarea" value="{!delivery.Instructions__c}"/>
+                        </div>
+                    </div>
+
+                    <div class="slds-form-element">
+	                    <apex:commandButton action="{!save}" value="Save"/>
+                    </div>
+                    
+                </div>    
+            </apex:form>
+        </div>
+    </html>
+</apex:page>
